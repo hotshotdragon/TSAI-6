@@ -22,5 +22,4 @@ jobs:
         
     - name: Run model checks
       run: |
-        pytest tests/test_model.py --junitxml=report.xml
-        cat report.xml 
+        pytest tests/test_model.py -v
