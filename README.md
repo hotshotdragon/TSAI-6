@@ -1,6 +1,7 @@
 # MNIST Model Training
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/hotshotdragon/TSAI-6/model_checks.yml?branch=main)
+[![Build Status](https://github.com/hotshotdragon/TSAI-6/actions/workflows/model_checks.yml/badge.svg)](https://github.com/hotshotdragon/TSAI-6/actions/workflows/model_checks.yml)
+
 ![Python Version](https://img.shields.io/badge/python-3.8-blue)
 
 This project contains a PyTorch implementation of a convolutional neural network (CNN) for classifying the MNIST dataset. The model is defined in a modular format, and GitHub Actions are used to ensure the model architecture meets specific requirements.
