@@ -1,0 +1,68 @@
+name: Model Architecture Checks
+
+on: [push, pull_request]
+
+jobs:
+  model-checks:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install torch torchvision
+        
+    - name: Create model checks script
+      run: |
+        cat > check_model.py << EOL
+        import torch
+        from models.mnist_net import Net
+        
+        def count_parameters(model):
+            return sum(p.numel() for p in model.parameters() if p.requires_grad)
+        
+        def check_batch_norm(model):
+            has_bn = any(isinstance(m, torch.nn.BatchNorm2d) for m in model.modules())
+            assert has_bn, "Model must use Batch Normalization"
+            
+        def check_dropout(model):
+            has_dropout = any(isinstance(m, torch.nn.Dropout) for m in model.modules())
+            assert has_dropout, "Model must use Dropout"
+            
+        def check_fully_connected(model):
+            has_fc = any(isinstance(m, torch.nn.Linear) for m in model.modules())
+            assert has_fc, "Model must have Fully Connected layers"
+            
+        def main():
+            model = Net()
+            
+            # Check parameter count
+            param_count = count_parameters(model)
+            print(f"Total parameters: {param_count}")
+            assert param_count > 10000, "Model should have more than 10k parameters"
+            
+            # Check for Batch Normalization
+            check_batch_norm(model)
+            print("✓ Model uses Batch Normalization")
+            
+            # Check for Dropout
+            check_dropout(model)
+            print("✓ Model uses Dropout")
+            
+            # Check for Fully Connected layers
+            check_fully_connected(model)
+            print("✓ Model has Fully Connected layers")
+            
+        if __name__ == "__main__":
+            main()
+        EOL
+        
+    - name: Run model checks
+      run: python check_model.py 
