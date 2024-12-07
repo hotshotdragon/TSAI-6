@@ -1,5 +1,8 @@
 # MNIST Model Training
 
+![Build Status](https://img.shields.io/github/actions/workflow/status/yourusername/yourrepo/model_checks.yml?branch=main)
+![Python Version](https://img.shields.io/badge/python-3.8-blue)
+
 This project contains a PyTorch implementation of a convolutional neural network (CNN) for classifying the MNIST dataset. The model is defined in a modular format, and GitHub Actions are used to ensure the model architecture meets specific requirements.
 
 ## Project Structure

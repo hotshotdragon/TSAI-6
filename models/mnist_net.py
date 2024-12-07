@@ -35,6 +35,9 @@ class Net(nn.Module):
         self.conv7 = nn.Conv2d(32, 10, 1, bias=False)  # 7x7x10
         
         self.dropout = nn.Dropout(0.1)
+        
+        # Fully Connected Layer
+        self.fc1 = nn.Linear(10, 10)  # Adding a small fully connected layer
 
     def forward(self, x):
         x = self.dropout(self.bn1(F.relu(self.conv1(x))))
@@ -52,4 +55,5 @@ class Net(nn.Module):
         x = self.conv7(x)
         x = F.adaptive_avg_pool2d(x, 1)
         x = x.view(-1, 10)
+        x = self.fc1(x)  # Pass through the fully connected layer
         return F.log_softmax(x, dim=1) 
