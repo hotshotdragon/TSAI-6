@@ -19,7 +19,7 @@ This project contains a PyTorch implementation of a convolutional neural network
 
 The following checks are performed on the model:
 
-1. **Total Parameter Count Test**: Ensures the model has more than 10,000 parameters.
+1. **Total Parameter Count Test**: Ensures the model has less than 20,000 parameters.
 2. **Use of Batch Normalization**: Ensures the model uses Batch Normalization layers.
 3. **Use of DropOut**: Ensures the model uses Dropout layers.
 4. **Use of Fully Connected Layer or GAP**: Ensures the model has Fully Connected layers or Global Average Pooling.
